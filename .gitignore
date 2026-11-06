@@ -1,0 +1,11 @@
+# Ignore virtual environment
+venv/
+# Ignore python cache
+__pycache__/
+# Ignore sample data (too large for GitHub)
+samples/
+*.npy
+# Ignore system files
+.DS_Store
+Thumbs.db
+*.crdownload

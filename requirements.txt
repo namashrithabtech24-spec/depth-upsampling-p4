@@ -1,0 +1,10 @@
+gradio
+numpy
+opencv-contrib-python-headless
+scikit-image
+matplotlib
+torch
+torchvision
+timm
+plotly
+pillow
