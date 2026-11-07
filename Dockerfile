@@ -8,9 +8,13 @@ RUN apt-get update && apt-get install -y libgl1 libglib2.0-0 && rm -rf /var/lib/
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# --- THIS IS THE CRITICAL FIX ---
-# Pre-download the MiDaS model and its dependencies during the build.
-# This prevents any network calls or trust prompts when the container starts.
+# Set a consistent cache directory for PyTorch Hub
+ENV TORCH_HOME=/app/torch_cache
+
+# --- CRITICAL FIX ---
+# Pre-download the MiDaS model AND its problematic dependency during the build.
+# This bypasses the interactive "y/N" prompt that occurs at runtime.
+RUN python -c "import torch; torch.hub.load('rwightman/gen-efficientnet-pytorch', 'geffnet', trust_repo=True)"
 RUN python -c "import torch; torch.hub.load('isl-org/MiDaS', 'MiDaS_small', trust_repo=True)"
 
 COPY . .
