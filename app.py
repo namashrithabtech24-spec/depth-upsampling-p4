@@ -7,11 +7,10 @@ import plotly.graph_objects as go
 import time
 import torch
 
-# Load MiDaS for automatic depth generation
-print("Loading MiDaS model...")
-model = torch.hub.load("intel-isl/MiDaS", "MiDaS_small")
+# Change to 'isl-org/MiDaS' and add trust_repo=True
+model = torch.hub.load("isl-org/MiDaS", "MiDaS_small", trust_repo=True)
 model.eval()
-transform = torch.hub.load("intel-isl/MiDaS", "transforms").small_transform
+transform = torch.hub.load("isl-org/MiDaS", "transforms", trust_repo=True).small_transform
 
 def draw_ellipses(rgb_img, trust_map, step=30):
     vis = rgb_img.copy()
