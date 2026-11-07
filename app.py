@@ -1,3 +1,4 @@
+import os
 import gradio as gr
 import cv2
 import numpy as np
@@ -171,5 +172,15 @@ with gr.Blocks(title="Hybrid Depth Upsampling") as demo:
             gr.Markdown("This plot mathematically proves that the AI's 'Trust Map' is reliable. As the AI's confidence score increases (X-axis), the actual depth error drops (Y-axis).")
             gr.Image("trust_validation_plot.png", label="Validation Plot")
 
+
 if __name__ == "__main__":
-    demo.launch(theme=theme, share=True)
+    # Read the PORT environment variable set by Cloud Run
+    port = int(os.environ.get("PORT", 8080))
+    
+    # Launch Gradio bound to 0.0.0.0 on the specified port
+    demo.launch(
+        server_name="0.0.0.0",
+        server_port=port,
+        theme=theme,
+        share=False
+    )
