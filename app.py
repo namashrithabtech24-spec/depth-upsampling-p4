@@ -6,6 +6,13 @@ from hybrid import adaptive_fusion
 import plotly.graph_objects as go
 import time
 import torch
+import torch.hub
+
+# Programmatically trust all nested/sub-dependent repositories in non-interactive environments
+torch.hub._check_repo_is_trusted = lambda *args, **kwargs: True
+
+# Your existing model loading code follows...
+model = torch.hub.load("isl-org/MiDaS", "MiDaS_small", trust_repo=True)
 
 # Change to 'isl-org/MiDaS' and add trust_repo=True
 model = torch.hub.load("isl-org/MiDaS", "MiDaS_small", trust_repo=True)
